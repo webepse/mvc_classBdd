@@ -16,7 +16,9 @@ class HomeController{
     public static function post($postId)
     {
         $postManager = new PostManager();
+        $commentManager = new CommentManager();
         $post = $postManager->getPost($postId);
+        $comments = $commentManager->getComments($postId);
 
         require('view/frontend/postView.php');
     }

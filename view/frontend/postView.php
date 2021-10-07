@@ -11,6 +11,13 @@
     </div>
 </div>
 
+<h2>Commentaires</h2>
+<?php foreach($comments as $comment): ?>
+    <div><strong><?= $comment->author ?></strong></div>
+    <div>le <?= $comment->comment_date_fr ?></div>
+    <div><?= nl2br($comment->comment) ?></div>
+<?php endforeach; ?>
+
 <?php $content = ob_get_clean() ?>
 
 <?php require("template.php") ?>
