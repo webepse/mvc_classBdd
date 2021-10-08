@@ -5,6 +5,10 @@ require('model/Autoloader.php');
 Autoloader::register();
 
 class HomeController{
+
+    /**
+     * Permet d'afficher tous les postes
+     */
     public static function listPosts()
     {
         $postManager = new PostManager(); // création de l'objet
@@ -13,6 +17,10 @@ class HomeController{
         require("view/frontend/listPostsView.php");
     }
 
+    /**
+     * Permet d'afficher un post
+     * @param int $postId
+     */
     public static function post($postId)
     {
         $postManager = new PostManager();
@@ -23,6 +31,11 @@ class HomeController{
         require('view/frontend/postView.php');
     }
     
+    /**
+     * Permet d'afficher un commentaire
+     *
+     * @param int $id
+     */
     public static function comment($id)
     {
         $commentManager = new CommentManager();
