@@ -22,4 +22,49 @@ class HomeController{
 
         require('view/frontend/postView.php');
     }
+    
+    public static function comment($id)
+    {
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getComment($id);
+        require("view/frontend/commentView.php");
+    }
+
+    public static function updateComment($commentId, $comment, $postId, $author)
+    {
+        $err=0;
+        if(empty($comment))
+        {
+            $err=1;
+        }else{
+            $comment = htmlspecialchars($comment);
+        }
+        if(empty($postId))
+        {
+            $err=2;
+        }
+        if(empty($author))
+        {
+            $err=3;
+        }
+        if($err==0)
+        {
+            $commentManager = new CommentManager();
+            $affectedLines = $commentManager->updateComment($commentId,$comment,$author);
+            if($affectedLines === false){
+                throw new \Exception('Impossible de modifier le commentaire');
+            }else{
+                header("LOCATION:index.php?action=post&id=".$postId);
+            }
+
+
+        }else{
+            header("LOCATION:index.php?action=comment&id=".$commentId."&err=".$err);
+        }
+    }
+
+    public static function forbidden()
+    {
+        require("view/frontend/forbiddenView.php");
+    }
 }
