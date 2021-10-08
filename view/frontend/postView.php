@@ -12,6 +12,23 @@
 </div>
 
 <h2>Commentaires</h2>
+<form action="index.php?action=addcomment&id=<?= $post->id ?>" method="POST">
+    <div class="form-group">
+        <label for="auteur">Auteur</label>
+        <input type="text" id="auteur" name="author" value="">
+    </div>
+    <div class="form-group">
+        <label for="com">Commentaire: </label>
+        <textarea name="commentaire" id="com" cols="30" rows="10"></textarea>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Envoyer">
+    </div>
+
+
+</form>
+
+
 <?php foreach($comments as $comment): ?>
     <div><a href="index.php?action=comment&id=<?= $comment->id ?>"><strong><?= $comment->author ?></strong></a></div>
     <div>le <?= $comment->comment_date_fr ?></div>

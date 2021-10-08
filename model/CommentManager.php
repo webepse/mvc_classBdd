@@ -24,6 +24,20 @@ class CommentManager extends Manager{
         return $data;
     }
 
+    public function postComment($postId, $author, $comment)
+    {
+        $statement = "INSERT INTO comments(post_id,author,comment,comment_date) VALUES(:myid,:auteur,:comment,NOW())";
+        $insert = $this->dbConnect()->prepare($statement);
+        $affectedLines = $insert->execute([
+            "myid"=>$postId,
+            "auteur"=>$author,
+            "comment"=>$comment
+        ]);
+        $insert->closeCursor();
+        return $affectedLines;
+    }
+
+
     public function updateComment($commentId, $comment, $author)
     {
         $statement = "UPDATE comments SET comment=:comment, author=:author WHERE id=:myid";

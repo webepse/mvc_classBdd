@@ -25,7 +25,19 @@ try{
             }else{
                 throw new \Exception('Aucun identifiant de commentaire envoyé');
             }
-        }elseif($_GET['action']=="upcomment")
+        }elseif($_GET['action']=="addcomment")
+        {
+            if(isset($_GET['id']) && $_GET['id'] > 0)
+            {
+                if(isset($_POST['commentaire']) AND isset($_POST['author']))
+                {
+                   HomeController::addComment($_GET['id'],$_POST['author'],$_POST['commentaire']); 
+                }else{
+                    HomeController::forbidden();
+                }
+            }
+        }
+        elseif($_GET['action']=="upcomment")
         {
             if(isset($_GET['id']) && $_GET['id'] > 0)
             {

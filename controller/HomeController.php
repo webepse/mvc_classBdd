@@ -30,6 +30,38 @@ class HomeController{
         require("view/frontend/commentView.php");
     }
 
+    public static function addComment($postId,$author,$comment)
+    {
+        $err=0;
+        if(empty($comment))
+        {
+            $err=1;
+        }else{
+            $comment = htmlspecialchars($comment);
+        }
+        if(empty($postId))
+        {
+            $err=2;
+        }
+        if(empty($author))
+        {
+            $err=3;
+        }
+        if($err==0)
+        {
+            $commentManager = new CommentManager();
+            $affectedLines = $commentManager->postComment($postId,$author,$comment);
+            if($affectedLines === false){
+                throw new \Exception('Impossible d\'ajouter le commentaire !');
+            }else{
+                header("LOCATION:index.php?action=post&id=".$postId);
+            }
+        }else{
+            header("LOCATION:index.php?action=post&id=".$postId."&err=".$err);
+        }
+        
+    }
+
     public static function updateComment($commentId, $comment, $postId, $author)
     {
         $err=0;
